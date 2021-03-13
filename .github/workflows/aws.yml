@@ -27,7 +27,8 @@ jobs:
           aws-region: eu-west-2
 
       - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1.3.3
 
       - name: Build, tag, and push image to Amazon ECR
         env:
@@ -35,8 +36,8 @@ jobs:
           ECR_REPOSITORY: sandbox-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Create Docker ECS context
         run: |
@@ -47,5 +48,8 @@ jobs:
           docker context use sandboxapp
 
       - name: Deploy using Docker Compose
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker compose up
+          aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+          docker compose up -d
