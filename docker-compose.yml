@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   sandbox-app:
+    image: sandbox-app
     build: .
     ports:
       - "8080:8080"
