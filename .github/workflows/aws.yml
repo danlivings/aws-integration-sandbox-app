@@ -48,8 +48,5 @@ jobs:
           docker context use sandboxapp
 
       - name: Deploy using Docker Compose
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          aws ecr get-login-password --region=$AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
           docker compose up -d

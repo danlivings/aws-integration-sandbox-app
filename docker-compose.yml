@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   sandbox-app:
-    image: sandbox-app
+    image: 438130844057.dkr.ecr.eu-west-2.amazonaws.com/sandbox-app
     build: .
     ports:
       - "8080:8080"
