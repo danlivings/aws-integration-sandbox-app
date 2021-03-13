@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html th:replace="~{layout :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Posts</title>
+</head>
+<body>
+<section>
+    <div th:each="post: ${posts}" class="card mb-3">
+        <h5 class="card-header" th:text="${post.author}">Jim Jimmers</h5>
+        <div class="card-body">
+            <p class="card-text" th:text="${post.text}">Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="card-footer text-muted">
+            <small>Posted at
+                <th:block th:text="${#calendars.format(post.postedAt, 'yyyy-MM-dd HH:mm z')}">2021-01-01 12:01</th:block>
+            </small>
+        </div>
+    </div>
+
+    <hr class="mt-5"/>
+    <h4>Add post</h4>
+    <form action="#" th:action="@{/}" th:object="${post}" method="post">
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" th:field="*{author}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Message</label>
+            <textarea th:field="*{text}" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mb-5">Post</button>
+    </form>
+</section>
+</body>
+</html>

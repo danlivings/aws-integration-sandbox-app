@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html th:fragment="layout(title, content)" xmlns:th="http://thymeleaf.org" class="h-100">
+<head>
+    <title><th:block th:include="${title}"/> - AWS Sandbox</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" th:href="@{/}">AWS Sandbox</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="flex-shrink-0">
+    <div class="container" style="margin-top: 100px;" th:insert="${content}">
+        <p>Layout content</p>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container mb-5">
+        <h5 class="text-muted mt-3">AWS Sandbox</h5>
+        <span class="text-muted">&copy; 2021 Dan Livings.</span>
+    </div>
+</footer>
+
+</body>
+</html>
